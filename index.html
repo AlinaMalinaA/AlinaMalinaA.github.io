@@ -57,8 +57,7 @@
 
 <script>
 
-	const colors = ['cyan', 'khaki', 'palegreen', 'darkcyan', 'yellow', 'indigo', 'aqua',
-					'blue', 'red', 'orchid', 'green', 'orange', 'olive'];
+	const colors = ['amber', 'darkcyan', 'yellow', 'blue', 'red', 'orchid', 'green', 'orange', 'olive'];
 
 	const keys = Array.from(document.querySelectorAll('.key'));
 	keys.forEach(k => k.addEventListener('transitionend', removeTransition));
@@ -77,21 +76,24 @@
 
 		audio.currentTime = 0;
 		audio.play();
-
+		//генерация рандомного кода
 		var randomColor = colors[Math.floor(Math.random() * colors.length)];
+		//тень соответствующего цвета
 		key.style.boxShadow = '0 0 1rem ' + randomColor;
+		//цвет рамки
 		key.style.borderColor = randomColor;
+		//цвет текста
 		key.querySelector('.sound').style.color = randomColor;
 	}
 
 	function removeTransition(event) {
 		if (event.propertyName !== 'transform') return;
+		//убрать стилевой класс
 		event.target.classList.remove('playing');
-
-		const key = event.target;
-		key.style.boxShadow = null;
-		// key.style.borderColor = null;
-		// key.querySelector('.sound').style.color = null;
+		//цвет рамки - черный
+		event.target.style.borderColor = "black";
+		//убрать цвет тени
+		event.target.style.boxShadow = null;
 	}
 
 </script>
