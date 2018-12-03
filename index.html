@@ -50,7 +50,7 @@
 		
 		// options.series[number] = {color: 'black'};
 		chart.draw(data, options);
-		
+		progres();
       }
 	  
 	  function checkIt(){
@@ -58,7 +58,7 @@
 		var names = array[0];
 		for (var name of names){
 			// console.log(name.toLowerCase() , N.toLowerCase(), name.toLowerCase() == N.toLowerCase())
-			if (name.toLowerCase() == N.toLowerCase()) {
+			if ((name.toLowerCase() == N.toLowerCase()) || (name.toLowerCase().indexOf(N.toLowerCase()) == 0))  {
 				// console.log("!!!")
 				
 				
@@ -89,7 +89,7 @@
 		
 		options.series = {}
 
-var number = 60;
+				var number = 60;
 				
 				
 				number = names.indexOf(name) - 1;
@@ -104,8 +104,8 @@ var number = 60;
 				}
 				
 				
-        chart.draw(data, options);
-		isSelected = true;
+				chart.draw(data, options);
+				isSelected = true;
 				break;
 				}
 			else {
@@ -151,7 +151,7 @@ var number = 60;
 		function progres() {
 			var q = 0;
 			
-			for (i = 1; i < 14; i++) {
+			for (i = 1; i < 15; i++) {
 				if (getCookie(i)!=null) {
 					document.getElementById(i).checked=true;
 					q++;
@@ -209,31 +209,50 @@ var number = 60;
 		<tr style="">
 			<td style="background-color: #fff47275; width: 30%;">K3415</td>
 			<td style="background-color: #ff727275;">Общее</td>
-			<td style="background-color: #72a4ff75;">K3420</td>
+			<td style="background-color: #72a4ff75; width: 20%;">K3420</td>
 		</tr><tr>
 			<td style="background-color: #fff47275;">
 			Дубаков: 
-			<input type="checkbox" id="1" onchange="train(1)"> реферат,
-			<input type="checkbox" id="2" onchange="train(2)"> онлайн-курс с отчетами и заданиями после модулей,
-			<input type="checkbox" id="3" onchange="train(3)"> упражнения после лекций
+			<ul>
+			
+			<li><input type="checkbox" id="1" onchange="train(1)"> Реферат в печатном виде
+			<ul>
+			<li><input type="checkbox" id="2" onchange="train(2)"> Презентация по реферату 
+			</ul>
+			<li><input type="checkbox" id="3" onchange="train(3)"> 4 модуля по курсу Veeam: 
+			<ul>
+			<li> Перевод в виде краткого конспекта модуля 
+			<li> Скриншоты выполненных заданий после модуля (и в модуле)
+			</ul>
+			<li> 12 декабря тест по ВИМУ и рубежка!
+			<li><input type="checkbox" id="14" onchange="train(14)"> 13 упражнений после лекций до 12 декабря!  
+			
+			</ul>
 			</td>
 			<td style="background-color: #ff727275;">
 			Гуревич: 
+			<ul>
+			<li>
 			<input type="checkbox" id="4" onchange="train(4)">бизнес-план 
-			<br>Иванов: 
-			<input type="checkbox" id="5" onchange="train(5)">8 лаб
-			<br>Ананченко: 
-			<input type="checkbox" id="6" onchange="train(6)">3 лабы по винде, 
-			<input type="checkbox" id="7" onchange="train(7)">4 лабы по линуксу, 
-			<input type="checkbox" id="8" onchange="train(8)">реферат, 
-			<input type="checkbox" id="9" onchange="train(9)">два теста на сайте
-			<br>Мультимедия: 
-			<input type="checkbox" id="10" onchange="train(10)">реферат
-			<br>ПО(нусечка): 
-			<input type="checkbox" id="11" onchange="train(11)">5 лаб, 
-			<input type="checkbox" id="12" onchange="train(12)">домашка
+			</ul>
+			Иванов: 
+			<ul>
+			<li><input type="checkbox" id="5" onchange="train(5)">8 лаб
+			</ul>
+			Ананченко: 
+			<ul>
+			<li><input type="checkbox" id="6" onchange="train(6)"> 6 лаб по винде
+			<li><input type="checkbox" id="7" onchange="train(7)"> 5 лаб по линуксу
+			<li><input type="checkbox" id="8" onchange="train(8)"> реферат
+			<li><input type="checkbox" id="9" onchange="train(9)">два теста на сайте
+			</ul>
+			Мультимедия: 
+			<ul><li><input type="checkbox" id="10" onchange="train(10)">реферат</ul>
+			ПО(нусечка): 
+			<ul><li><input type="checkbox" id="11" onchange="train(11)">5 лаб, 
+			<li><input type="checkbox" id="12" onchange="train(12)">домашка</ul>
 			<br>Облачные(Ира): 
-			<input type="checkbox" id="13" onchange="train(13)">5 лаб
+			<ul><li><input type="checkbox" id="13" onchange="train(13)">5 лаб</ul>
 			</td>
 			<td style="background-color: #72a4ff75;">
 			? (Напишите мне, добавлю и вашу домашку)
@@ -246,4 +265,4 @@ var number = 60;
 	</table>
 	
   </body>
-</html> 
+</html>  
