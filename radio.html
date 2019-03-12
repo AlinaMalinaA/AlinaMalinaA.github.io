@@ -1,26 +1,244 @@
-1 - транзистор<br>
-2 - охлаждение.<br>
-3 - фильтр нижних частот. Позволяет уточнить сигнал путем обрезания лишних частот, но недостаточно эффективно, чтобы ограничиться одним им. <br>
+<script>
+	function sh(id) {
+  var x = document.getElementById(id);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+
+<button onclick="sh('o')">Обозначения</button>
+<div id="o" style="background-color: #ebd2ef; display: none">
+1 - биполярный транзистор. 1п - полевой транзистор. Используется для уменьшения коэф. шума. <br>
+2 - термостабилизация. По резистору идет постоянный ток - от него транзистор нагревается. Чтобы постоянный ток не шел, рядом ставят конденсатор - и транзистор не нагревается.<br>
+3 - фильтр нижних частот или фильтр верхних частот (=полосовой фильтр). Позволяет уточнить сигнал путем обрезания лишних частот, но недостаточно эффективно, чтобы ограничиться одним им. <br>
 4 - трансформаторная (катушечная) связь. Защищает от прямого тока, достаточно эффективна против скачков тока, хорошо передает сигнал в отличие от других видов связи. Бывает изолирован от питания (когда не подсоединен ни к чему на схеме), весь процесс работает от энергии сигнала.<br>
 9 - емкостная связть (потому что сверху конденсаторы). Чтобы не получилась идуктивная вместо емкостной, катушки экранируют.<br>
-11, 8 - колебательный контур. Если рядом или через конденсатор нарисована стрелочка - настраиваемый на какую-либо частоту.<br>
+11, 8 - колебательный контур. Пропускает только одну частоту (в отличие от фильтра, который пропускает диапазон частот). Если рядом или через конденсатор нарисована стрелочка - настраиваемый на какую-либо частоту.<br>
+12 - антенна<br>
+13 - делитель напряжения<br>
+14 - каскад, элемент усилителя, синоним слову контур, но подразумевается, что их может быть несколько одинаковых.<br>
+15 - Резистор Rи служит для создания обратного смещения на затворе и термостабилизации тока стока, а Си - для исключения обратной связи по переменному току.<br>
+16 - колебательный контур. Этот контур перестраивается одновременно с контуром входной цепи, нужен для увеличения чувствительности и отношения сигнал/шум,  и подавления помех (избирательности) по зеркальному каналу, что в усилителе промежуточной частоты обеспечить невозможно.  <br>
+17 - диод<br>
+</div>
 <br><br>
 
-Простейший амплитудный детектор. Состоит из нелинейного элемента - транзистора (или диода), и фильтра н.ч. Детектор перевод амплитуду (или частоту) исходного сигнала в функцию напряжения выходного сигнала. Здесь это достигается путем задержки (ток пойдет вниз, и будет идти с другой скоростью в отличие от того тока, который пошел наверх).<br>
-Обратная связь в детекторе повышает сопротивление и устойчивость к перегрузкам. <br>
-<style> img{width: 50%;} </style>
-<img src="pics\11.PNG">
-<img src="pics\12.PNG">
-<img src="pics\13.PNG">
-<img src="pics\14.PNG">
-<img src="pics\15.PNG">
-<img src="pics\16.PNG">
-<img src="pics\17.PNG">
-<img src="pics\18.PNG">
-<img src="pics\19.PNG">
-<img src="pics\110.PNG">
-<img src="pics\111.PNG">
-<img src="pics\112.PNG">
-<img src="pics\113.PNG">
-<img src="pics\114.PNG">
 
+<button onclick="sh('t')">Термины</button>
+<div id="t" style="background-color: #dffbe6; display: none">
+Входная цепь в простейшем случае состоит из антенны, колебательного контура (если стрелочка, то настраиваемого), а дальше - каскады (катушка+кондей).<br>
+Колебательный контур колеблется только на определенной частоте (если стрелочка, то настраиваемой), а значит, сигнал только определенной частоты проходит дальше контура, иначе - заземляется.<br>  
+Антенна ловит все сигналы и передает их дальше, если не понятно, что за антенна и подключение, то, возможно, это магнитная антенна (как в компасе).<br>
+Усилители радиочастоты (УРЧ) предназначены для усиления напряжения колебания входного сигнала, подаваемого с входной цепи (ВЦ), и обеспечивают необходимую избирательность приемника.<br>
+Каскод - «КАСКад через катОД». Такой усилитель, в котором из двух транизсторов один включен с общим катодом.<br>
+Дифференциальный каскад работает так: у него есть две ветки, по каждой из них идет ток. Но ветки разные, ток идет неодинаково. В конце веток пришедший ток сравнивается, и разницу отправляют дальше по цепи.<br>
+Преобразователь частоты линеен только в отношении амплитуды, так то он не линеен.<br>
+Гетеродин - маломощный автогенератор, предназначенный для создания колебаний с высокой стабильностью как по частоте, так и по амплитуде.<br>
+Супергетеродинные приемники отличаются от приемников прямого усиления тем, что в них имеется устройство для преобразования промодулированного высокочастотного радиосигнала в более низкие колебания с сохранением закона модуляции. Это преобразователь частоты, который состоит из гетеродина Г и смесителя на транзисторе.<br>
+Преобразователи частоты супергетеродинных приемников состоят из преобразующего элемента, генератора высокой частоты и резонансной системы. Преобразователь частоты перемещает (транспозирует) спектр исходного сигнала без наружшения ширины его спектра и с сохранением модуляции. <br>
+Сопряжение контуров - это когда к контурам подключаются связанные настраиваемые кондеи, и настраивая кондеи можно настроить контура одинаково.<br>
+Смеситель - складывает (умножает) спектры сигналов, при умножении добавляются посторонние частоты (полусумма)<br>
+Тракт промежуточной частоты радиоприемника включает в себя часть схемы приемника от входа первого преобразователя частоты до входа детектора. Преобразует частоту любого исходного сигнала в нужную.
+Простейший амплитудный детектор. Состоит из нелинейного элемента - транзистора (или диода), и фильтра н.ч. Детектор переводит амплитуду (или частоту) исходного сигнала в функцию напряжения выходного сигнала. Здесь это достигается путем задержки (ток пойдет вниз, и будет идти с другой скоростью в отличие от того тока, который пошел наверх).<br>
+Обратная связь повышает сопротивление и устойчивость к перегрузкам. <br>
+</div><br><br>
+<style> img{width: 50%;} 
+#updown {
+  height: 20px;
+  width: 20px;
+  position: fixed;
+  bottom: 30px;
+  right: 10px;
+  cursor: pointer;
+    z-index: 100000;
+    background-color: green;
+	
+    text-align: center;
+}
+
+</style>
+Схемы с цифрами<br>
+<button onclick="sh('11')">Входные цепи</button>
+<div id="11" style="display: none">
+<img src="pics\vhodnie_tsepi\scheme\svyazi_vkhodnoy_tsepi.png">
+<img src="pics\vhodnie_tsepi\scheme\vidy_emkostnoy_svyazi.png">
+<img src="pics\vhodnie_tsepi\scheme\vkhodnaya_tsep_neposr_svyaz.png">
+</div><br>
+
+<button onclick="sh('22')">Преобразователи</button>
+<div id="22" style="display: none">
+<img src="pics\preobrazovateli\scheme\preobrazovatel_balansny.png">
+<img src="pics\preobrazovateli\scheme\preobrazovatel_prost.png">
+</div><br>
+
+<button onclick="sh('33')">Усилители</button>
+<div id="33" style="display: none">
+<img src="pics\usiliteli\scheme\differents.png">
+<img src="pics\usiliteli\scheme\dva_kaskada_usilitelya_s_transformatornoy_svyazyu.png">
+<img src="pics\usiliteli\scheme\dvukhkaskadny_usilitel.png">
+<img src="pics\usiliteli\scheme\kaskodny.png">
+<img src="pics\usiliteli\scheme\rezonans_differents.png">
+<img src="pics\usiliteli\scheme\usilitel_s_obschey_bazoy.png">
+<img src="pics\usiliteli\scheme\usilitel_s_obschim_emmiterom.png">
+<img src="pics\usiliteli\scheme\usilitel_s_obschim_emmiterom_s_dvumya_pitaniami.png">
+<img src="pics\usiliteli\scheme\usilitel_s_obschim_zatvorom.png">
+<img src="pics\usiliteli\scheme\usilitel_s_polevym_tranzistorom_s_obschim_istokom.png">
+<img src="pics\usiliteli\scheme\usilitel_s_polevym_tranzistorom_s_obschim_istokom_s_zaschitoy_ot_zerkalirovania.png">
+</div><br>
+
+<button onclick="sh('44')">Усилители промежуточной частоты</button>
+<div id="44" style="display: none">
+<img src="pics\usiliteli_pch\scheme\upch_dvukhkonturny.png">
+<img src="pics\usiliteli_pch\scheme\upch_dvukhkonturny_s_induktivnoy.png">
+<img src="pics\usiliteli_pch\scheme\upch_odnokonturny.png">
+<img src="pics\usiliteli_pch\scheme\upch_s_sosredotoch_selektsiey.png">
+</div><br>
+
+<button onclick="sh('55')">Детекторы</button>
+<div id="55" style="display: none">
+Здесь могут быть кривые цифры, сверяйтесь с остальными схемами
+<img src="pics\detectori\scheme\Amplitudny_detektor.png">
+<img src="pics\detectori\scheme\Amplitudny_detektor_s_obratnoy_svyazyu.png">
+<img src="pics\detectori\scheme\dvukhkonturny_variant_upch.png">
+<img src="pics\detectori\scheme\dvukhkonturny_variant_upch2.png">
+<img src="pics\detectori\scheme\dvukhkonturny_variant_upch3.png">
+<img src="pics\detectori\scheme\dvukhkonturny_variant_upch4.png">
+<img src="pics\detectori\scheme\odnokonturny_variant_upch.png">
+<img src="pics\detectori\scheme\posl_i_paral_ampl_detektor.png">
+<img src="pics\detectori\scheme\upch_s_filtrom_sosredotochennoy_selektsii.png">
+<img src="pics\detectori\scheme\upch_s_filtrom_sosredotochennoy_selektsii2.png">
+</div><br>
+
+<br><br>
+Слайды лекций<br>
+<button onclick="sh('1')">Входные цепи</button>
+<div id="1" style="display: none">
+<img src="pics\vhodnie_tsepi\11.PNG">
+<img src="pics\vhodnie_tsepi\12.PNG">
+<img src="pics\vhodnie_tsepi\13.PNG">
+<img src="pics\vhodnie_tsepi\14.PNG">
+<img src="pics\vhodnie_tsepi\15.PNG">
+<img src="pics\vhodnie_tsepi\16.PNG">
+<img src="pics\vhodnie_tsepi\17.PNG">
+<img src="pics\vhodnie_tsepi\18.PNG">
+<img src="pics\vhodnie_tsepi\19.PNG">
+<img src="pics\vhodnie_tsepi\110.PNG">
+<img src="pics\vhodnie_tsepi\111.PNG">
+<img src="pics\vhodnie_tsepi\112.PNG">
+<img src="pics\vhodnie_tsepi\113.PNG">
+<img src="pics\vhodnie_tsepi\114.PNG">
+</div><br>
+
+<button onclick="sh('2')">Усилители</button>
+<div id="2" style="display: none">
+<img src="pics\usiliteli\21.PNG">
+<img src="pics\usiliteli\22.PNG">
+<img src="pics\usiliteli\23.PNG">
+<img src="pics\usiliteli\24.PNG">
+<img src="pics\usiliteli\25.PNG">
+<img src="pics\usiliteli\26.PNG">
+<img src="pics\usiliteli\27.PNG">
+<img src="pics\usiliteli\28.PNG">
+<img src="pics\usiliteli\29.PNG">
+<img src="pics\usiliteli\210.PNG">
+<img src="pics\usiliteli\211.PNG">
+<img src="pics\usiliteli\212.PNG">
+<img src="pics\usiliteli\213.PNG">
+<img src="pics\usiliteli\214.PNG">
+<img src="pics\usiliteli\215.PNG">
+<img src="pics\usiliteli\216.PNG">
+<img src="pics\usiliteli\217.PNG">
+<img src="pics\usiliteli\218.PNG">
+<img src="pics\usiliteli\219.PNG">
+</div><br>
+
+<button onclick="sh('3')">Преобразователи</button>
+<div id="3" style="display: none">
+<img src="pics\preobrazovateli\31.PNG">
+<img src="pics\preobrazovateli\32.PNG">
+<img src="pics\preobrazovateli\33.PNG">
+<img src="pics\preobrazovateli\34.PNG">
+<img src="pics\preobrazovateli\35.PNG">
+<img src="pics\preobrazovateli\36.PNG">
+<img src="pics\preobrazovateli\37.PNG">
+<img src="pics\preobrazovateli\38.PNG">
+<img src="pics\preobrazovateli\39.PNG">
+<img src="pics\preobrazovateli\310.PNG">
+<img src="pics\preobrazovateli\311.PNG">
+<img src="pics\preobrazovateli\312.PNG">
+<img src="pics\preobrazovateli\313.PNG">
+<img src="pics\preobrazovateli\314.PNG">
+<img src="pics\preobrazovateli\315.PNG">
+<img src="pics\preobrazovateli\316.PNG">
+<img src="pics\preobrazovateli\317.PNG">
+<img src="pics\preobrazovateli\318.PNG">
+<img src="pics\preobrazovateli\319.PNG">
+<img src="pics\preobrazovateli\320.PNG">
+<img src="pics\preobrazovateli\321.PNG">
+<img src="pics\preobrazovateli\322.PNG">
+<img src="pics\preobrazovateli\323.PNG">
+<img src="pics\preobrazovateli\324.PNG">
+<img src="pics\preobrazovateli\325.PNG">
+<img src="pics\preobrazovateli\326.PNG">
+<img src="pics\preobrazovateli\327.PNG">
+<img src="pics\preobrazovateli\328.PNG">
+</div><br>
+
+<button onclick="sh('4')">Усилители промежуточной частоты</button>
+<div id="4" style="display: none">
+<img src="pics\usiliteli_pch\11.PNG">
+<img src="pics\usiliteli_pch\12.PNG">
+<img src="pics\usiliteli_pch\13.PNG">
+<img src="pics\usiliteli_pch\14.PNG">
+<img src="pics\usiliteli_pch\15.PNG">
+<img src="pics\usiliteli_pch\16.PNG">
+<img src="pics\usiliteli_pch\17.PNG">
+<img src="pics\usiliteli_pch\18.PNG">
+<img src="pics\usiliteli_pch\19.PNG">
+<img src="pics\usiliteli_pch\110.PNG">
+<img src="pics\usiliteli_pch\111.PNG">
+<img src="pics\usiliteli_pch\112.PNG">
+<img src="pics\usiliteli_pch\113.PNG">
+<img src="pics\usiliteli_pch\114.PNG">
+<img src="pics\usiliteli_pch\115.PNG">
+<img src="pics\usiliteli_pch\116.PNG">
+<img src="pics\usiliteli_pch\117.PNG">
+</div><br>
+
+<button onclick="sh('5')">Детекторы</button>
+<div id="5" style="display: none">
+<img src="pics\detectori\11.PNG">
+<img src="pics\detectori\12.PNG">
+<img src="pics\detectori\13.PNG">
+<img src="pics\detectori\14.PNG">
+<img src="pics\detectori\15.PNG">
+<img src="pics\detectori\16.PNG">
+<img src="pics\detectori\17.PNG">
+<img src="pics\detectori\18.PNG">
+<img src="pics\detectori\19.PNG">
+<img src="pics\detectori\110.PNG">
+<img src="pics\detectori\111.PNG">
+<img src="pics\detectori\112.PNG">
+<img src="pics\detectori\113.PNG">
+<img src="pics\detectori\114.PNG">
+<img src="pics\detectori\115.PNG">
+<img src="pics\detectori\116.PNG">
+<img src="pics\detectori\117.PNG">
+<img src="pics\detectori\118.PNG">
+<img src="pics\detectori\119.PNG">
+<img src="pics\detectori\120.PNG">
+<img src="pics\detectori\121.PNG">
+<img src="pics\detectori\122.PNG">
+<img src="pics\detectori\123.PNG">
+<img src="pics\detectori\124.PNG">
+<img src="pics\detectori\125.PNG">
+<img src="pics\detectori\126.PNG">
+<img src="pics\detectori\127.PNG">
+<img src="pics\detectori\128.PNG">
+<img src="pics\detectori\129.PNG">
+<img src="pics\detectori\130.PNG">
+</div><br>
+<div id="updown" onclick="window.scrollTo(0, 0);">↑</div>
