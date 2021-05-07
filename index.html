@@ -220,7 +220,7 @@
 					setTimeout(start, 500);
 				}
 				else if (array.length == 7){ 
-					alert("You win!!"); 
+					alert("You won!!"); 
 					// console.log(h_times)
 					console.log(getCookie("ht"))
 					
@@ -311,6 +311,7 @@
 				background-color: #fbf6ed;
 				text-align: center;
 				box-shadow: 0 0 10px rgb(74, 22, 0) inset;
+				padding: 5px;
 			}
 			
 			body {
@@ -337,7 +338,7 @@
 				border-radius: 10px;
 				border-color: saddlebrown;
 				padding: 10px;
-				width: 860px;
+				width: 865px;
 				border-style: groove;
 				margin: 5px 0px;
 				box-shadow: 0 0 10px rgb(74, 22, 0) inset;
@@ -348,19 +349,19 @@
 	</head>
 	<body>
 		<div class="help" id="help">
-			Вы и второй игрок получаете по три случайные карты из ста пронумерованных. Ваша задача - выложить карты на стол в порядке возрастания, не обязательно по очереди. 
-			Оба проигрывают, как только положена карта не в свой черед. Вы не можете общаться друг с другом и видеть карты друг друга.
+			You and another player receive three cards from a stack of 100 numbered cards. The goal for both of you is to lay your cards on table in ascending order, not necessarily in each turn. Both of you lose when order gets messed up. You can't communicate with each other and see each other's cards. 
+
 		</div>
 		<div style="display: flex;">
 			<div class="playtable" id="playtable">
 				<div class="card" id="0">0</div>
 			</div>
 			<div id="time" class="time">
-				Количество игр:
+				Number of games:
 				<div id="games">0</div>
-				До конца хода:
+				End of turn in:
 				<div id="timer">30</div>
-				Результат: <div id="stat">0</div>
+				Score: <div id="stat">0</div>
 			</div>
 		</div>
 		<button onclick="start()" id="b" class="button">Start</button>
