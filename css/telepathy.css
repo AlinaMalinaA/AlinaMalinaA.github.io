@@ -1,0 +1,69 @@
+.playtable {
+	border-radius: 5px;
+	border-style: groove;
+	text-align: center;
+	display: flex;
+	width: 700px;
+	border-color: saddlebrown;
+	border-width: 10px;
+	background-image: url('http://orig01.deviantart.net/2793/f/2009/037/5/a/well_worn_outdoor_poker_table_by_n3x_.jpg');
+}
+
+.card {
+	box-shadow: 0px 0px 100px 1px #fff;
+	text-align:center;
+	line-height:130px;
+	margin: 5px;
+	width: 90px;
+	height: 130px;
+	border-radius: 10px;
+	border-style: none;
+	background-color: white;
+	background-size: contain;
+	background-image: url('https://pp.userapi.com/c847019/v847019631/19bd46/gJZA_dwkeKk.jpg');
+}
+
+.time{
+	border-style: groove;
+	border-color: saddlebrown;
+	border-radius: 5px;
+	width: 150px;
+	height: 150px;
+	margin-left: 5px;
+	background-color: #fbf6ed;
+	text-align: center;
+	box-shadow: 0 0 10px rgb(74, 22, 0) inset;
+	padding: 5px;
+}
+
+body {
+	background-color: #224e2f29;
+	background-image: linear-gradient(90deg, rgba(255,255,255,.07) 50%, transparent 50%),
+	linear-gradient(90deg, rgba(255,255,255,.13) 50%, transparent 50%),
+	linear-gradient(90deg, transparent 50%, rgba(255,255,255,.17) 50%),
+	linear-gradient(90deg, transparent 50%, rgba(255,255,255,.19) 50%);
+	background-size: 13px, 29px, 37px, 53px;
+}
+
+.button {
+	background: #fbf6ed;
+	height: 40px;
+	width: 100px;
+	border-radius: 10px;
+	border-color: saddlebrown;
+	margin: 5px;
+	box-shadow: 0 0 10px rgb(74, 22, 0) inset;
+}
+
+.help {
+	background: #fbf6ed;
+	border-radius: 10px;
+	border-color: saddlebrown;
+	padding: 10px;
+	width: 865px;
+	border-style: groove;
+	margin: 5px 0px;
+	box-shadow: 0 0 10px rgb(74, 22, 0) inset;
+
+
+}
