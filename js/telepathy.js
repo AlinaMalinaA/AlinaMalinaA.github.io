@@ -98,13 +98,13 @@ function remove_children(id){
 	}
 }
 
-function create_elem(type, id, parent_id, text, child_class){
+function create_elem(type, id, parentId, text, child_class){
 	var div = document.createElement(type);       
 	div.id = id;
 	div.className += child_class;
 	var t = document.createTextNode(text);       // Create a text node
 	div.appendChild(t);                            
-	document.getElementById(parent_id).appendChild(div);  
+	if (parentId) document.getElementById(parentId).appendChild(div);  
 	return div;
 }
 	
@@ -265,3 +265,4 @@ function getCookie(name) {
 	return(setStr);
 }
 
+module.exports = create_elem;

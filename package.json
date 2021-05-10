@@ -1,0 +1,23 @@
+{
+  "name": "alinamalinaa.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlinaMalinaA/AlinaMalinaA.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlinaMalinaA/AlinaMalinaA.github.io/issues"
+  },
+  "homepage": "https://github.com/AlinaMalinaA/AlinaMalinaA.github.io#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "jest": "^26.6.3"
+  }
+}
