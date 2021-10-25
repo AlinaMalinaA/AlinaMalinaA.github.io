@@ -1,0 +1,149 @@
+#board {
+	width: 215px;
+	height: 215px;
+	background-image: url(back.png);
+	background-size: cover;
+	transform: rotate(45deg);
+	left: 70px;
+	top: 70px;
+	position: relative;
+	border-radius: 7px;
+}
+
+#board div img {
+	transform: rotate(315deg);
+	
+}
+
+#border1 {
+	background-color: #2b0700;
+	width: 355px;
+	height: 350px;
+	position: fixed;
+}
+
+#border2 {
+	/* background-color: blue; */
+	width: 300px;
+	height: 300px;
+	position: fixed;
+	top: 90px;
+	left: 25px;
+	border-radius: 50%;
+	border: solid;
+	border-width: 10px;
+	border-color: #decdc1;
+}
+
+#reset {
+    position: relative;
+    top: 150px;
+}
+
+.cell {
+	width: 50px;
+	height: 50px;
+	/* background-color: aqua; */
+	display: inline-flex;
+	border-radius: 25px;
+}
+
+img {
+	width: 40px;
+	/* transform: rotate(315deg); */
+}
+
+#stack {
+	margin: 25px;
+	position: relative;
+	top: 120px;
+}
+
+#stack div {
+	margin: 5px;
+}
+
+#chosen img {
+	border-color: blue;
+    border-style: inset;
+	position: relative;
+	top: 120px;
+}
+
+#circle {
+  height: 290px;
+  width: 290px;
+  border-style: solid;
+  border-color: #fff0b9;
+  border-radius: 50%;
+  position: absolute;
+  left: 20px;
+  top: 85px;
+}
+
+.circle {
+  height: 50px;
+  width: 50px;
+  border-style: solid;
+  border-color: #fff0b9;
+  border-radius: 50%;
+  position: absolute;
+}
+
+#turn {
+	background-color: aquamarine;
+	width: 380px;
+}
+
+#settings {
+	position: fixed;
+	top: 720px;
+	left: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}

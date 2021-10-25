@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<div id="turn"><h3>You select a piece for AI to play with.</h3></div>
+
+<div id="border1"></div>
+<div id="border2"></div>
+<div id="board">
+	<div id="00" class="cell"></div>
+	<div id="01" class="cell"></div>
+	<div id="02" class="cell"></div>
+	<div id="03" class="cell"></div>
+	<div id="10" class="cell"></div>
+	<div id="11" class="cell"></div>
+	<div id="12" class="cell"></div>
+	<div id="13" class="cell"></div>
+	<div id="20" class="cell"></div>
+	<div id="21" class="cell"></div>
+	<div id="22" class="cell"></div>
+	<div id="23" class="cell"></div>
+	<div id="30" class="cell"></div>
+	<div id="31" class="cell"></div>
+	<div id="32" class="cell"></div>
+	<div id="33" class="cell"></div>
+</div>
+
+<div id ="stack"> </div>
+<div id ="chosen"> </div>
+<div id ="result"> </div>
+
+
+<div id ="settings">
+	<input id = "difficulty" type='range' min='0' max='1' value='1' step='1' class="slider" list="tickmarks"/>
+	<datalist id="tickmarks">
+		<option value="0" label="Hard">Hard</option>
+		<option value="1" label="Easy">Easy</option>
+	</datalist>
+	<label for="difficulty">Hard-Easy</label>
+</div>
+
+<script>
+	let allIDs = ["0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111", ]
+	let finish = false;
+	let chosenID;
+	let chosenObj;
+	let usedCells = [];
+
+	let board = [["","","",""],["","","",""],["","","",""],["","","",""]]
+
+	let easy = true;
+</script>
+<script type='text/javascript' src='aiLogic.js'></script>
+<script>
+	generateStack()
+
+	var slider = document.getElementById("difficulty");
+	//console.log("slider", slider.value)
+
+	slider.oninput = function() {
+	  //console.log("slider", slider.value)
+	  easy = parseInt(slider.value);
+	  reset();
+	}
+	userClicksStack();
+	userClicksTable();
+
+
+	function userClicksTable() {
+		// click on table to put selected
+		let tbl = document.getElementById("board");
+		tbl.addEventListener("click", async () => {
+			let cellId = event.target.id
+			//console.log(id, event.target.nodeName);
+			if ((cellId != 'board')&&(usedCells.indexOf(cellId) == -1)&&(chosenObj)) {
+				usedCells.push(cellId)
+
+				document.getElementById("chosen").innerHTML = "";
+				document.getElementById(cellId).append(chosenObj)
+				board[cellId[0]][cellId[1]] = chosenObj.id
+				chosenObj = null;
+				chosenID = null;
+				finish = await check();
+				if (!finish) document.getElementById("turn").innerHTML = "<h3>You select a piece for AI to play with.</h3>";
+			}
+		});
+	}
+
+	function userClicksStack() {
+		// click on stack to select next
+		let stack = document.getElementById("stack");
+		stack.addEventListener("click", () => {
+			if ((chosenID)||(finish)) {}
+			else {
+				if ((event.target.id)&&(event.target.id != "stack")) {
+					chosenID = event.target.id
+					//console.log("clicked element", chosenID)
+					chosenObj = document.getElementById(chosenID)
+					chosenID = chosenObj.id;
+					chosenObj.remove()
+					document.getElementById("chosen").innerHTML = "";
+					document.getElementById("chosen").append(chosenObj)
+					aiTurn()
+				}
+			}
+		});
+	}
+
+	function isWinningLine(line) {
+		for (let i of [0, 1, 2, 3]) {
+			if (line[0]!="") {
+				if (line[0][i] == line[1][i]) {
+					if (line[1][i] == line[2][i]) {
+						if (line[2][i] == line[3][i]) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	async function check(isAI) {
+		// horizontal
+		let line;
+		for (let i=0; i < 4; i++) {
+			line = board[i]
+			if (isWinningLine(line)) {
+				await win([i+"0", i+"1", i+"2", i+"3"], isAI);
+				return true;
+			}
+		}
+		// vertical
+		line = []
+		for (let i=0; i < 4; i++) {
+			for (let j=0; j < 4; j++) {
+				line.push(board[j][i])
+			}
+			if (isWinningLine(line)) {
+				await win(["0"+i, "1"+i, "2"+i, "3"+i], isAI);
+				return true;
+			}
+			line = []
+		}
+		// diagonal /
+		line = [board[0][3], board[1][2], board[2][1], board[3][0]]
+		if (isWinningLine(line)) {
+			await win(["03", "12", "21", "30"], isAI);
+			return true;
+		}
+		// diagonal \
+		line = [board[0][0], board[1][1], board[2][2], board[3][3]]
+		if (isWinningLine(line)) {
+			await win(["00", "11", "22", "33"], isAI);
+			return true;
+		}
+	}
+
+	async function win(lineCell, isAI) {
+		if (isAI) {
+			document.getElementById("turn").innerHTML = "<h3>AI wins!</h3>";
+			document.getElementById("result").innerHTML = "<button id='reset' onClick='reset()'>Reset</button>"
+			}
+		else {
+			document.getElementById("turn").innerHTML = "<h3>You win!</h3>";
+			document.getElementById("result").innerHTML = "<button id='reset' onClick='reset()'>Reset</button>"
+			}
+		for (let cell of lineCell) {
+			document.getElementById(cell).style.backgroundColor = "red";
+		}
+	}
+
+	function reset() {
+		document.getElementById("board").innerHTML = '<div id="00" class="cell"></div> <div id="01" class="cell"></div> <div id="02" class="cell"></div> <div id="03" class="cell"></div> <div id="10" class="cell"></div> <div id="11" class="cell"></div> <div id="12" class="cell"></div> <div id="13" class="cell"></div> <div id="20" class="cell"></div> <div id="21" class="cell"></div> <div id="22" class="cell"></div> <div id="23" class="cell"></div> <div id="30" class="cell"></div> <div id="31" class="cell"></div> <div id="32" class="cell"></div> <div id="33" class="cell"></div>';
+
+		generateStack()
+		document.getElementById("result").innerHTML = ""
+		usedCells = [];
+		finish = false;
+		document.getElementById("turn").innerHTML = "<h3>You select a piece for AI to play with.</h3>";
+		document.getElementById("result").innerHTML = ""
+		document.getElementById("chosen").innerHTML = "";
+		chosenObj = null;
+		chosenID = null;
+		board = [["","","",""],["","","",""],["","","",""],["","","",""]]
+	}
+
+	function generateStack() {
+		let stack = document.getElementById("stack");
+		stack.innerHTML = "";
+		allIDs.sort( () => .5 - Math.random() );
+		for (let id of allIDs) {
+			stack.innerHTML += "<img id="+id+" src='"+id+".png'>"
+			if ([3,7,11].indexOf(allIDs.indexOf(id)) > -1) stack.innerHTML +=  "<br>"
+
+		}
+	}
+
+</script>
+<!--
+long / short
+black / white
+hollow / full
+square / circle
+0000  - long black hollow square
+1111 - short white full circle
+1010 - short black full square
+0111 - long white full circle
+ -->
+</html>
