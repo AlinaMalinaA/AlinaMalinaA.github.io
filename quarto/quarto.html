@@ -1,44 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="style.css">
 </head>
-<div id="turn"><h3>You select a piece for AI to play with.</h3></div>
-
-<div id="border1"></div>
-<div id="border2"></div>
-<div id="board">
-	<div id="00" class="cell"></div>
-	<div id="01" class="cell"></div>
-	<div id="02" class="cell"></div>
-	<div id="03" class="cell"></div>
-	<div id="10" class="cell"></div>
-	<div id="11" class="cell"></div>
-	<div id="12" class="cell"></div>
-	<div id="13" class="cell"></div>
-	<div id="20" class="cell"></div>
-	<div id="21" class="cell"></div>
-	<div id="22" class="cell"></div>
-	<div id="23" class="cell"></div>
-	<div id="30" class="cell"></div>
-	<div id="31" class="cell"></div>
-	<div id="32" class="cell"></div>
-	<div id="33" class="cell"></div>
+<div id="tinkerHolder" class="initialGlow"></div>
+<div id="tinker"></div>
+<div id="stack"> </div>
+<div id="boardContainer">
+	<div id="circleBig"></div>
+	<div id="board">
+		<div id="00" class="cell"></div>
+		<div id="01" class="cell"></div>
+		<div id="02" class="cell"></div>
+		<div id="03" class="cell"></div>
+		<div id="10" class="cell"></div>
+		<div id="11" class="cell"></div>
+		<div id="12" class="cell"></div>
+		<div id="13" class="cell"></div>
+		<div id="20" class="cell"></div>
+		<div id="21" class="cell"></div>
+		<div id="22" class="cell"></div>
+		<div id="23" class="cell"></div>
+		<div id="30" class="cell"></div>
+		<div id="31" class="cell"></div>
+		<div id="32" class="cell"></div>
+		<div id="33" class="cell"></div>
+	</div>
 </div>
 
-<div id ="stack"> </div>
-<div id ="chosen"> </div>
-<div id ="result"> </div>
 
+<div id ="chosen"></div>
 
-<div id ="settings">
-	<input id = "difficulty" type='range' min='0' max='1' value='1' step='1' class="slider" list="tickmarks"/>
-	<datalist id="tickmarks">
-		<option value="0" label="Hard">Hard</option>
-		<option value="1" label="Easy">Easy</option>
-	</datalist>
-	<label for="difficulty">Hard-Easy</label>
+<div id="napkin"></div>
+<div id="easy"></div>
+<div id="easyImage"></div>
+<div id="coin15k">
+	<div id="out" style="display: none;"></div>
+	<div id="in"></div>
 </div>
+<div id="hard"></div>
+<div id="hardImage" class="hidden"></div>
+<div id="coin10k">
+	<div id="out"></div>
+	<div id="in" style="display: none;"></div>
+</div>
+<div id="reset"></div>
+<div id="resetImage" class="hidden"></div>
+<div id="coin2k">
+	<div id="out"></div>
+	<div id="in" style="display: none;"></div>
+</div>
+<div id="autowin"></div>
+<div id="autowinImage" class="hidden"></div>
+<div id="coinMetro">
+	<div id="out"></div>
+	<div id="in" style="display: none;"></div>
+</div>
+<div id="coinsHolder" class="initialGlow"></div>
+<div id="coins"></div>
+
+<div id="passport">
+	<div id="stats" class="gradientBack">
+		<h4>Statistics</h4>
+		Your wins: <text id="usersWins">0</text><br>
+		AI wins: <text id="AIsWins">0</text>
+	</div>
+</div>
+
+<div id="blocknote">
+	<div id="logs" class="gradientBack">
+		<h4>Log</h4>
+		<div id ="events"></div>
+	</div>
+</div>
+
+<div id="m1"></div>
+<div id="m2"></div>
+<div id="m3"></div>
+<div id="m5"></div>
+<div id="m10"></div>
+<div id="m15"></div>
+<div id="m20"></div>
+<div id="m50"></div>
+<div id="m100"></div>
+
+
+<!-- <div id="pencil"></div> -->
+<div id="bookHolder" class="initialGlow"></div>
+<div id="book"></div>
+<div class="popup">
+    <div class="popup__container">
+      <button type="button" class="close-button"></button>
+      <h2 class="popup__title">Rules</h2>
+      <div class="popup__text">
+		  The goal is simple: complete a row of four pieces where all four pieces have something in common. The challenge: your opponent chooses the piece you play and vice versa!
+	  </div>
+    </div>
+  </div>
 
 <script>
 	let allIDs = ["0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111", ]
@@ -46,23 +104,132 @@
 	let chosenID;
 	let chosenObj;
 	let usedCells = [];
+	let botsTurn = false;
 
 	let board = [["","","",""],["","","",""],["","","",""],["","","",""]]
 
 	let easy = true;
+	let isAutowin = false;
 </script>
 <script type='text/javascript' src='aiLogic.js'></script>
 <script>
 	generateStack()
 
-	var slider = document.getElementById("difficulty");
-	//console.log("slider", slider.value)
-
-	slider.oninput = function() {
-	  //console.log("slider", slider.value)
-	  easy = parseInt(slider.value);
-	  reset();
+	function clickBody() {
+	    document.getElementById("tinkerHolder").classList.remove('initialGlow');
+	    document.getElementById("bookHolder").classList.remove('initialGlow');
+	    document.getElementById("coinsHolder").classList.remove('initialGlow');
+		document.body.removeEventListener("click", clickBody);
 	}
+	document.body.addEventListener("click", clickBody)
+
+
+
+	let easyButton = document.getElementById("easy");
+	easyButton.onclick = function() {
+	  if (!easy) {
+		  easy = true;
+		  reset();
+		  document.getElementById("easyImage").classList.remove('hidden');
+		  document.getElementById("hardImage").classList.add('hidden');
+		  // change 10k coin position
+		  // becomes easy - 10k coin shoudld be out (which is first child)
+    	  document.getElementById("coin10k").lastElementChild.style.display = "none";
+    	  document.getElementById("coin10k").firstElementChild.style.display = "block";
+	  }
+	}
+
+	// out - first child
+	easyButton.onmouseenter = function() {
+  	  document.getElementById("coin15k").firstElementChild.style.display = easy?"block":"none";
+  	  document.getElementById("coin15k").lastElementChild.style.display = easy?"none":"block";
+	}
+
+	easyButton.onmouseleave = function() {
+  	  document.getElementById("coin15k").lastElementChild.style.display = easy?"block":"none";
+  	  document.getElementById("coin15k").firstElementChild.style.display = easy?"none":"block";
+	}
+
+
+	let hardButton = document.getElementById("hard");
+	hardButton.onclick = function() {
+	  if (easy) {
+		  easy = false;
+		  reset();
+		  document.getElementById("hardImage").classList.remove('hidden');
+		  document.getElementById("easyImage").classList.add('hidden');
+		  // change 10k coin position
+		  // become hard - 15k coin shoudld be out (which is first child)
+    	  document.getElementById("coin15k").lastElementChild.style.display = "none";
+    	  document.getElementById("coin15k").firstElementChild.style.display = "block";
+	  }
+	}
+
+	// out - first child
+	hardButton.onmouseenter = function() {
+  	  document.getElementById("coin10k").lastElementChild.style.display = easy?"block":"none";
+  	  document.getElementById("coin10k").firstElementChild.style.display = easy?"none":"block";
+	}
+
+	hardButton.onmouseleave = function() {
+  	  document.getElementById("coin10k").firstElementChild.style.display = easy?"block":"none";
+  	  document.getElementById("coin10k").lastElementChild.style.display = easy?"none":"block";
+	}
+
+
+	let resetButton = document.getElementById("reset");
+	resetButton.onclick = function() {
+	  reset();
+	  // document.getElementById("resetImage").classList.add('disappearDelay');
+	}
+
+	// out - first child
+	resetButton.onmouseenter = function() {
+  	  document.getElementById("coin2k").lastElementChild.style.display = "block";
+  	  document.getElementById("coin2k").firstElementChild.style.display = "none";
+	}
+
+	resetButton.onmouseleave = function() {
+  	  document.getElementById("coin2k").firstElementChild.style.display = "block";
+  	  document.getElementById("coin2k").lastElementChild.style.display = "none";
+	}
+
+
+	let autowinButton = document.getElementById("autowin");
+	autowinButton.onclick = function() {
+	  isAutowin = !isAutowin;
+	  if (isAutowin) {
+		  document.getElementById("autowinImage").classList.remove('hidden');
+	  }
+	  else {
+		  document.getElementById("autowinImage").classList.add('hidden');
+	  }
+	}
+
+	// out - first child
+	autowinButton.onmouseenter = function() {
+  	  document.getElementById("coinMetro").lastElementChild.style.display = isAutowin?"none":"block";
+  	  document.getElementById("coinMetro").firstElementChild.style.display = isAutowin?"block":"none";
+	}
+
+	autowinButton.onmouseleave = function() {
+  	  document.getElementById("coinMetro").firstElementChild.style.display = isAutowin?"none":"block";
+  	  document.getElementById("coinMetro").lastElementChild.style.display = isAutowin?"block":"none";
+	}
+
+	popupToggle = () => {
+	  document.querySelector('.popup').classList.toggle('popup_opened');
+	}
+
+	let bookButton = document.getElementById("book");
+	bookButton.addEventListener('click', popupToggle);
+	const popup = document.querySelector('.popup');
+	let closeButton = popup.querySelector(".close-button");
+	closeButton.addEventListener('click', popupToggle);
+
+
+
+
 	userClicksStack();
 	userClicksTable();
 
@@ -73,16 +240,17 @@
 		tbl.addEventListener("click", async () => {
 			let cellId = event.target.id
 			//console.log(id, event.target.nodeName);
-			if ((cellId != 'board')&&(usedCells.indexOf(cellId) == -1)&&(chosenObj)) {
+			if ((cellId != 'board')&&(usedCells.indexOf(cellId) == -1)&&(chosenObj)&&(!botsTurn)) {
 				usedCells.push(cellId)
 
 				document.getElementById("chosen").innerHTML = "";
 				document.getElementById(cellId).append(chosenObj)
+				document.getElementById("events").innerHTML += "User puts &#9;"+chosenObj.id+" in cell&emsp; "+cellId+"<br>"
 				board[cellId[0]][cellId[1]] = chosenObj.id
 				chosenObj = null;
 				chosenID = null;
 				finish = await check();
-				if (!finish) document.getElementById("turn").innerHTML = "<h3>You select a piece for AI to play with.</h3>";
+				// if (!finish) document.getElementById("turn").innerHTML = "<h3>You select a piece for AI to play with.</h3>";
 			}
 		});
 	}
@@ -91,7 +259,7 @@
 		// click on stack to select next
 		let stack = document.getElementById("stack");
 		stack.addEventListener("click", () => {
-			if ((chosenID)||(finish)) {}
+			if (chosenID||finish||botsTurn) {}
 			else {
 				if ((event.target.id)&&(event.target.id != "stack")) {
 					chosenID = event.target.id
@@ -121,13 +289,13 @@
 		}
 	}
 
-	async function check(isAI) {
+	async function check() {
 		// horizontal
 		let line;
 		for (let i=0; i < 4; i++) {
 			line = board[i]
 			if (isWinningLine(line)) {
-				await win([i+"0", i+"1", i+"2", i+"3"], isAI);
+				await win([i+"0", i+"1", i+"2", i+"3"]);
 				return true;
 			}
 		}
@@ -138,7 +306,7 @@
 				line.push(board[j][i])
 			}
 			if (isWinningLine(line)) {
-				await win(["0"+i, "1"+i, "2"+i, "3"+i], isAI);
+				await win(["0"+i, "1"+i, "2"+i, "3"+i]);
 				return true;
 			}
 			line = []
@@ -146,44 +314,47 @@
 		// diagonal /
 		line = [board[0][3], board[1][2], board[2][1], board[3][0]]
 		if (isWinningLine(line)) {
-			await win(["03", "12", "21", "30"], isAI);
+			await win(["03", "12", "21", "30"]);
 			return true;
 		}
 		// diagonal \
 		line = [board[0][0], board[1][1], board[2][2], board[3][3]]
 		if (isWinningLine(line)) {
-			await win(["00", "11", "22", "33"], isAI);
+			await win(["00", "11", "22", "33"]);
 			return true;
 		}
 	}
 
-	async function win(lineCell, isAI) {
-		if (isAI) {
-			document.getElementById("turn").innerHTML = "<h3>AI wins!</h3>";
-			document.getElementById("result").innerHTML = "<button id='reset' onClick='reset()'>Reset</button>"
+	async function win(lineCell) {
+		if (botsTurn) {
+			document.getElementById("AIsWins").innerHTML = parseInt(document.getElementById("AIsWins").innerHTML)+1
+	  		document.getElementById("AIsWins").classList.add("pulsingHighlight");
 			}
 		else {
-			document.getElementById("turn").innerHTML = "<h3>You win!</h3>";
-			document.getElementById("result").innerHTML = "<button id='reset' onClick='reset()'>Reset</button>"
+			document.getElementById("usersWins").innerHTML = parseInt(document.getElementById("usersWins").innerHTML)+1
+	  		document.getElementById("usersWins").classList.add("pulsingHighlight");
 			}
 		for (let cell of lineCell) {
-			document.getElementById(cell).style.backgroundColor = "red";
+			document.getElementById(cell).classList.add('red');
 		}
+		document.getElementById("reset").classList.add("pulsingHighlight");
 	}
 
 	function reset() {
 		document.getElementById("board").innerHTML = '<div id="00" class="cell"></div> <div id="01" class="cell"></div> <div id="02" class="cell"></div> <div id="03" class="cell"></div> <div id="10" class="cell"></div> <div id="11" class="cell"></div> <div id="12" class="cell"></div> <div id="13" class="cell"></div> <div id="20" class="cell"></div> <div id="21" class="cell"></div> <div id="22" class="cell"></div> <div id="23" class="cell"></div> <div id="30" class="cell"></div> <div id="31" class="cell"></div> <div id="32" class="cell"></div> <div id="33" class="cell"></div>';
 
 		generateStack()
-		document.getElementById("result").innerHTML = ""
 		usedCells = [];
 		finish = false;
-		document.getElementById("turn").innerHTML = "<h3>You select a piece for AI to play with.</h3>";
-		document.getElementById("result").innerHTML = ""
 		document.getElementById("chosen").innerHTML = "";
+		document.getElementById("events").innerHTML = "";
 		chosenObj = null;
 		chosenID = null;
+		botsTurn = false;
 		board = [["","","",""],["","","",""],["","","",""],["","","",""]]
+		document.getElementById("AIsWins").classList.remove("pulsingHighlight");
+		document.getElementById("usersWins").classList.remove("pulsingHighlight");
+		document.getElementById("reset").classList.remove("pulsingHighlight");
 	}
 
 	function generateStack() {
@@ -191,7 +362,7 @@
 		stack.innerHTML = "";
 		allIDs.sort( () => .5 - Math.random() );
 		for (let id of allIDs) {
-			stack.innerHTML += "<img id="+id+" src='"+id+".png'>"
+			stack.innerHTML += "<img id="+id+" src='images/pieces/"+id+".png'>"
 			if ([3,7,11].indexOf(allIDs.indexOf(id)) > -1) stack.innerHTML +=  "<br>"
 
 		}

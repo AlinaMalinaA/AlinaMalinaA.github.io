@@ -196,28 +196,27 @@ function getImageIDByChars(chars) {
 
 
 async function aiTurn() {
-	document.getElementById("turn").innerHTML = "<h3>AI plays with the selected piece.</h3>";
+	botsTurn = true;
+	await new Promise(r => setTimeout(r, 1000));
 
 	let cellID = aiGetCell();
-
 	usedCells.push(cellID);
-	await new Promise(r => setTimeout(r, 1000));
 
 	document.getElementById("chosen").innerHTML = "";
 	document.getElementById(cellID).append(chosenObj)
+	document.getElementById("events").innerHTML += "AI puts&emsp; "+chosenObj.id+" in cell&emsp; "+cellID+"<br>"
 	board[cellID[0]][cellID[1]] = chosenObj.id
 	chosenObj = null;
 	chosenID = null;
-	finish = await check(true)
+	finish = await check()
 	if (finish) return
-	document.getElementById("turn").innerHTML = "<h3>AI selects a piece for you to play with.</h3>";
 
+	await new Promise(r => setTimeout(r, 1000));
 
 	chosenObj = aiGetPiece();
 	chosenID = chosenObj.id;
-	await new Promise(r => setTimeout(r, 1000));
 	chosenObj.remove();
 	document.getElementById("chosen").innerHTML = "";
 	document.getElementById("chosen").append(chosenObj)
-	document.getElementById("turn").innerHTML = "<h3>You play with the selected piece.</h3>";
+	botsTurn = false;
 }
