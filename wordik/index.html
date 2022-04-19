@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+    <head>
+        <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap" rel="stylesheet">
+    </head>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="./list.js"></script>
+    <script type="text/javascript" src="./listRus.js"></script>
+    <script type='text/javascript' src='logic.js'></script>
+    <body onload="prepare()">
+        <div class="overlayHolder">
+            <div id="overlayStats">
+                <div class="pop-up">
+                    <h4 id="statisticsLabel">Statistics</h4>
+                    <div id="stats">
+                        <div class="statistic-container">
+                            <div id="label-total">Total</div>
+                            <div class="stat-total">22</div>
+                        </div>
+                        <div class="statistic-container">
+                            <div id="label-wins">Wins</div>
+                            <div class="stat-wins">2</div>
+                        </div>
+
+                    </div>
+                    <div id="schema"></div>
+                    <button onClick="copySchema()" id="copyBtn" class="copyBtnEng">Copy result</button>
+                    <button onClick="closePopup()" id="closeBtn" class="closeBtnEng">Close</button>
+                    <h4 id="word"></h4><ul id="definition"></ul>
+                </div>
+            </div>
+        </div>
+        <div id="settings">
+            <a href="#" onclick="auth()" id="authLink" class="hyperlink" style="display: none">Authenticate me</a><text id="helloUser" style="display: none">Hello</text><a href="#" onclick="changeLanguage()" id="languageLink">Russian Language</a>
+        </div>
+        <div class="overlayHolder" style="display: none">
+            <div id="overlayAuth">
+                <div class="pop-up">
+                    <h2>Create account</h2>
+                    <p id="textAuth"> Please input any passphrase in several words, the one that's easy for you to remember. It could be your favorite joke, your catchphrase, a line from a song or even your date of birth in words, for example "IWasBornInNinetyTwo...". The passphrase length should be at least 40 symbols.
+                    </p>
+                    <input id="passphrase"/ placeholder="passphrase">
+                </div>
+            </div>
+        </div>
+        <h2 id="title">Wordik</h2>
+        <div id="alertBox">
+            <span id="alert">
+            </span>
+        </div>
+        <div id="newGameContainer"><button onclick="startNewGame()" id="newGame" class="newGame">New Game</button></div>
+
+        <div id="guesses">
+            <div id="row0" class="active">
+                <div class="cell" id="cell0"></div><div class="cell" id="cell1"></div><div class="cell" id="cell2"></div><div class="cell" id="cell3"></div><div class="cell" id="cell4"></div>
+            </div>
+            <div id="row1" class="inactive">
+                <div class="cell" id="cell0"></div><div class="cell" id="cell1"></div><div class="cell" id="cell2"></div><div class="cell" id="cell3"></div><div class="cell" id="cell4"></div>
+            </div>
+            <div id="row2" class="inactive">
+                <div class="cell" id="cell0"></div><div class="cell" id="cell1"></div><div class="cell" id="cell2"></div><div class="cell" id="cell3"></div><div class="cell" id="cell4"></div>
+            </div>
+            <div id="row3" class="inactive">
+                <div class="cell" id="cell0"></div><div class="cell" id="cell1"></div><div class="cell" id="cell2"></div><div class="cell" id="cell3"></div><div class="cell" id="cell4"></div>
+            </div>
+            <div id="row4" class="inactive">
+                <div class="cell" id="cell0"></div><div class="cell" id="cell1"></div><div class="cell" id="cell2"></div><div class="cell" id="cell3"></div><div class="cell" id="cell4"></div>
+            </div>
+            <div id="row5" class="inactive">
+                <div class="cell" id="cell0"></div><div class="cell" id="cell1"></div><div class="cell" id="cell2"></div><div class="cell" id="cell3"></div><div class="cell" id="cell4"></div>
+            </div>
+        </div>
+        <div id="keyboard">
+            <div id="keyboardEng">
+                <div id="line1">
+                    <button id="q" class="key" onclick="keyAction(this, 'q')">Q</button>
+                    <button id="w" class="key" onclick="keyAction(this, 'w')">W</button>
+                    <button id="e" class="key" onclick="keyAction(this, 'e')">E</button>
+                    <button id="r" class="key" onclick="keyAction(this, 'r')">R</button>
+                    <button id="t" class="key" onclick="keyAction(this, 't')">T</button>
+                    <button id="y" class="key" onclick="keyAction(this, 'y')">Y</button>
+                    <button id="u" class="key" onclick="keyAction(this, 'u')">U</button>
+                    <button id="i" class="key" onclick="keyAction(this, 'i')">I</button>
+                    <button id="o" class="key" onclick="keyAction(this, 'o')">O</button>
+                    <button id="p" class="key" onclick="keyAction(this, 'p')">P</button><br>
+                </div>
+
+                <div id="line2">
+                    <button id="a" class="key" onclick="keyAction(this, 'a')">A</button>
+                    <button id="s" class="key" onclick="keyAction(this, 's')">S</button>
+                    <button id="d" class="key" onclick="keyAction(this, 'd')">D</button>
+                    <button id="f" class="key" onclick="keyAction(this, 'f')">F</button>
+                    <button id="g" class="key" onclick="keyAction(this, 'g')">G</button>
+                    <button id="h" class="key" onclick="keyAction(this, 'h')">H</button>
+                    <button id="j" class="key" onclick="keyAction(this, 'j')">J</button>
+                    <button id="k" class="key" onclick="keyAction(this, 'k')">K</button>
+                    <button id="l" class="key" onclick="keyAction(this, 'l')">L</button><br>
+                </div>
+
+                <div id="line3">
+                    <button class="enterEng" onclick="checkInput()">ENTER</button>
+                    <button id="z" class="key" onclick="keyAction(this, 'z')">Z</button>
+                    <button id="x" class="key" onclick="keyAction(this, 'x')">X</button>
+                    <button id="c" class="key" onclick="keyAction(this, 'c')">C</button>
+                    <button id="v" class="key" onclick="keyAction(this, 'v')">V</button>
+                    <button id="b" class="key" onclick="keyAction(this, 'b')">B</button>
+                    <button id="n" class="key" onclick="keyAction(this, 'n')">N</button>
+                    <button id="m" class="key" onclick="keyAction(this, 'm')">M</button>
+                    <button class="deleteEng" onclick="deleteLetter()">DELETE</button>
+                </div>
+            </div>
+            <div id="keyboardRus">
+                <div id="line1">
+                    <button id="й" class="key" onclick="keyAction(this, 'й')">Й</button>
+                    <button id="ц" class="key" onclick="keyAction(this, 'ц')">Ц</button>
+                    <button id="у" class="key" onclick="keyAction(this, 'у')">У</button>
+                    <button id="к" class="key" onclick="keyAction(this, 'к')">К</button>
+                    <button id="е" class="key" onclick="keyAction(this, 'е')">Е</button>
+                    <button id="н" class="key" onclick="keyAction(this, 'н')">Н</button>
+                    <button id="г" class="key" onclick="keyAction(this, 'г')">Г</button>
+                    <button id="ш" class="key" onclick="keyAction(this, 'ш')">Ш</button>
+                    <button id="щ" class="key" onclick="keyAction(this, 'щ')">Щ</button>
+                    <button id="з" class="key" onclick="keyAction(this, 'з')">З</button>
+                    <button id="х" class="key" onclick="keyAction(this, 'х')">Х</button>
+                    <button id="ъ" class="key" onclick="keyAction(this, 'ъ')">Ъ</button><br>
+                </div>
+
+                <div id="line2">
+                    <button id="ф" class="key" onclick="keyAction(this, 'ф')">Ф</button>
+                    <button id="ы" class="key" onclick="keyAction(this, 'ы')">Ы</button>
+                    <button id="в" class="key" onclick="keyAction(this, 'в')">В</button>
+                    <button id="а" class="key" onclick="keyAction(this, 'а')">А</button>
+                    <button id="п" class="key" onclick="keyAction(this, 'п')">П</button>
+                    <button id="р" class="key" onclick="keyAction(this, 'р')">Р</button>
+                    <button id="о" class="key" onclick="keyAction(this, 'о')">О</button>
+                    <button id="л" class="key" onclick="keyAction(this, 'л')">Л</button>
+                    <button id="д" class="key" onclick="keyAction(this, 'д')">Д</button>
+                    <button id="ж" class="key" onclick="keyAction(this, 'ж')">Ж</button>
+                    <button id="э" class="key" onclick="keyAction(this, 'э')">Э</button><br>
+                </div>
+                <div id="line3">
+                    <button class="enterRus" onclick="checkInput()">ВВОД</button>
+                    <button id="я" class="key" onclick="keyAction(this, 'я')">Я</button>
+                    <button id="ч" class="key" onclick="keyAction(this, 'ч')">Ч</button>
+                    <button id="с" class="key" onclick="keyAction(this, 'с')">С</button>
+                    <button id="м" class="key" onclick="keyAction(this, 'м')">М</button>
+                    <button id="и" class="key" onclick="keyAction(this, 'и')">И</button>
+                    <button id="т" class="key" onclick="keyAction(this, 'т')">Т</button>
+                    <button id="ь" class="key" onclick="keyAction(this, 'ь')">Ь</button>
+                    <button id="б" class="key" onclick="keyAction(this, 'б')">Б</button>
+                    <button id="ю" class="key" onclick="keyAction(this, 'ю')">Ю</button>
+                    <button class="deleteRus" onclick="deleteLetter()">СТЕРЕТЬ</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
